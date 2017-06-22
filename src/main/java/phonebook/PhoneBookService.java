@@ -46,7 +46,7 @@ public class PhoneBookService {
 		PhoneBook pbook = new PhoneBook();
 		pbook.setFirstname("vd");
 		pbook.setLastname("fdsf");
-		pbook.setPhonenumber("111");
+		
 		
 		
 		return pbook;

@@ -19,10 +19,12 @@ public class UserDao {
 	
 	public List<UserName> getUsers (){
 		List<UserName> list;
-		Query query = em.createNamedQuery("UserName.findAll");
+		Query query = em.createQuery("select u from UserName u LEFT JOIN FETCH u.phoneNumbers2s");
 		list = query.getResultList();
 		return list;
 	}
+	
+	
 	
 	
 

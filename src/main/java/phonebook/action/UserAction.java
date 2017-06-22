@@ -7,6 +7,7 @@ import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 
 import hu.hugo.phonebook.PhoneBook;
+import model.PhoneNumbers2;
 import model.UserName;
 import phonebook.dao.UserDao;
 
@@ -23,6 +24,10 @@ public class UserAction {
 			PhoneBook pb = new PhoneBook();
 			pb.setFirstname(u.getFirstname());
 			pb.setLastname(u.getLastname());
+			List<String> slist = pb.getPhonenumbers();
+			for (PhoneNumbers2 pn : u.getPhoneNumbers2s()){
+				slist.add(pn.getPhone());
+			}
 			plist.add(pb);
 		}
 		return plist;
