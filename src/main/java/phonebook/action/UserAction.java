@@ -6,7 +6,11 @@ import java.util.List;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 
+import org.apache.deltaspike.jpa.api.transaction.Transactional;
+
+import common.exception.BaseException;
 import hu.hugo.phonebook.PhoneBook;
+import hu.hugo.phonebook.UpdatePhoneResponse;
 import model.PhoneNumbers2;
 import model.UserName;
 import phonebook.dao.UserDao;
@@ -17,21 +21,38 @@ public class UserAction {
 	@Inject
 	private UserDao userDao;
 	
-	public List<PhoneBook> getUsers (){
-		List<UserName> list = userDao.getUsers();
-		List<PhoneBook> plist = new ArrayList<PhoneBook>();
-		for (UserName u : list){
-			PhoneBook pb = new PhoneBook();
-			pb.setFirstname(u.getFirstname());
-			pb.setLastname(u.getLastname());
-			List<String> slist = pb.getPhonenumbers();
-			for (PhoneNumbers2 pn : u.getPhoneNumbers2s()){
-				slist.add(pn.getPhone());
-			}
-			plist.add(pb);
-		}
-		return plist;
+	public List<PhoneBook> getUsers () throws BaseException{
+		return userDao.getUsers();
+	}
+	public List<PhoneBook> getUsersWithNative () throws BaseException{
+		return userDao.getUsersWithNative();
 	}
 	
+	public PhoneBook getUserById (long id) throws BaseException{
+		PhoneBook user = userDao.getUsersById(id);
+		return user;
+	}
+	@Transactional
+	public PhoneBook createUser(PhoneBook phoneBook) {
+		UserName userName = new UserName();
+		userName.setFirstname(phoneBook.getFirstname());
+		userName.setLastname(phoneBook.getLastname());
+		
+		//userName = userDao.saveUser(userName);
+		userName.setPhoneNumbers2s(new ArrayList<PhoneNumbers2>());
+		for (String phonenumber : phoneBook.getPhonenumbers()){
+			PhoneNumbers2 pn = new PhoneNumbers2();
+			pn.setPhone(phonenumber);
+			//pn.setUserName(userName);
+			userName.addPhoneNumbers2(pn);
+			//userDao.savePhone(pn);
+		}
+		userName = userDao.saveUser(userName);
+		return phoneBook;
+	}
+	@Transactional
+	public UpdatePhoneResponse updateUserPhone(long id, String phoneFrom, String phoneTo) throws BaseException{		
+		return userDao.updateUserPhone(id, phoneFrom, phoneTo);
+	}
 
 }

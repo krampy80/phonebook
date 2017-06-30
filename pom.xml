@@ -242,6 +242,10 @@
                                     <xsd>src/main/resources/phonebook.xsd</xsd>
                                     <extension>true</extension>
                                 </xsdOption>
+                                <xsdOption>
+                                    <xsd>src/main/resources/common.xsd</xsd>
+                                    <extension>true</extension>
+                                </xsdOption>
                              </xsdOptions>
                         </configuration>
                     </execution>  

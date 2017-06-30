@@ -12,10 +12,12 @@ import java.util.List;
 @Entity
 @Table(name="USER_NAMES")
 @NamedQuery(name="UserName.findAll", query="SELECT u FROM UserName u")
+@SequenceGenerator(name="USER_NAMES_SEQ", sequenceName ="USER_NAMES_SEQ", allocationSize=0)
 public class UserName implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USER_NAMES_SEQ")
 	private long id;
 
 	private String firstname;
@@ -23,7 +25,7 @@ public class UserName implements Serializable {
 	private String lastname;
 
 	//bi-directional many-to-one association to PhoneNumbers2
-	@OneToMany(mappedBy="userName")
+	@OneToMany(mappedBy="userName", cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	private List<PhoneNumbers2> phoneNumbers2s;
 
 	public UserName() {

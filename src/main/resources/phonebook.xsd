@@ -1,19 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://hugo.hu/phonebook" targetNamespace="http://hugo.hu/phonebook">
-	<xs:complexType name="NumberList">
-        <xs:sequence>
-            <xs:element name="number" type="xs:string" maxOccurs="unbounded"/>
-    </xs:sequence>
-    </xs:complexType>
-	
-	
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://hugo.hu/phonebook"
+	xmlns:common="http://hugo.hu/common" targetNamespace="http://hugo.hu/phonebook">
+
+	<xs:import namespace="http://hugo.hu/common" schemaLocation="common.xsd" />
 	<xs:complexType name="PhoneBook">
-	   
-	   <xs:sequence>
-	       <xs:element name="firstname" type="xs:string"/>
-	       <xs:element name="lastname" type="xs:string"/>
-	       <xs:element name="phonenumbers" type="xs:string" maxOccurs="unbounded"/>
-	   </xs:sequence>    
+
+		<xs:sequence>
+			<xs:element name="firstname" type="common:NameType" />
+			<xs:element name="lastname" type="common:NameType" />
+			<xs:element name="phonenumbers" type="common:NumberType"
+				maxOccurs="unbounded" />
+		</xs:sequence>
 	</xs:complexType>
+
+	<xs:complexType name="UpdatePhoneRequest">
+
+		<xs:sequence>
+			<xs:element name="userId" type="common:IdType" />
+			<xs:element name="phoneFrom" type="common:NumberType" />
+			<xs:element name="phoneTo" type="common:NumberType" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="UpdatePhoneResponse">
+		<xs:sequence>
+			<xs:element name="phoneBook" type="PhoneBook" minOccurs="0"/>
+			<xs:element name="funcCode" type="common:FunctionCodes" />
+			<xs:element name="message" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+
+	</xs:complexType>
+
 </xs:schema>
 

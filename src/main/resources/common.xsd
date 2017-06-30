@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://hugo.hu/common"
+	targetNamespace="http://hugo.hu/common">
+
+	<xs:simpleType name="NameType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-zA-Z ]{1,30}" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="NumberType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9\-+]{6,10}" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="IdType">
+		<xs:restriction base="xs:long">
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="FunctionCodes">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Success" />
+			<xs:enumeration value="Error" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	   <xs:simpleType name="ReasonCodeType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="QUERY_ERROR" />
+            <xs:enumeration value="USERNAME_NOT_FOUND" />
+            <xs:enumeration value="PHONENUMBER_NOT_FOUND" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
+

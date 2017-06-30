@@ -11,10 +11,12 @@ import javax.persistence.*;
 @Entity
 @Table(name="PHONE_NUMBERS2")
 @NamedQuery(name="PhoneNumbers2.findAll", query="SELECT p FROM PhoneNumbers2 p")
+@SequenceGenerator(name="PHONE_NUMBERS2_SEQ", sequenceName ="PHONE_NUMBERS2_SEQ", allocationSize=0)
 public class PhoneNumbers2 implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PHONE_NUMBERS2_SEQ")
 	private long id;
 
 	private String phone;
